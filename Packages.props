@@ -17,23 +17,23 @@
 						version="2.0.0"
 			    />
 	  <PackageReference Update="Sitecore.XConnect"
-						version="10.1.0"
+						version="$(SitecoreVersion)"
 			    />
 	  <PackageReference Update="Sitecore.XConnect.Collection.Model"
-						version="10.1.0"
+						version="$(SitecoreVersion)"
 			    />
 	  <PackageReference Update="Sitecore.XConnect.Core"
-						version="10.1.0"
+						version="$(SitecoreVersion)"
 			    />
 
 	  <PackageReference Update="Sitecore.XConnect.Service.Plugins"
-						version="10.1.0"
+						version="$(SitecoreVersion)"
 			    />
 	  <PackageReference Update="System.Configuration.ConfigurationManager"
 						version="4.5.0"
 			    />
 	  <PackageReference Update="Sitecore.Kernel"
-						version="10.1.0"
+						version="$(SitecoreVersion)"
 			    />
 
   </ItemGroup>
