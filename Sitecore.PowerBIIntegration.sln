@@ -9,8 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sitecore.XConnect.ServicePl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DAE59BD0-EE63-4B84-9E8F-B4EF3945C850}"
 	ProjectSection(SolutionItems) = preProject
-		Directory.Build.targets.disabled = Directory.Build.targets.disabled
-		Packages.props.disabled = Packages.props.disabled
+		Directory.Build.targets = Directory.Build.targets
+		Packages.props = Packages.props
 	EndProjectSection
 EndProject
 Global

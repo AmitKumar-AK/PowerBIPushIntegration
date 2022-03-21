@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <SitecoreVersion>10.1.0</SitecoreVersion>
+    <SitecorePreVersion>10.0.0</SitecorePreVersion>
+  </PropertyGroup>
+  <ItemGroup>
+	  <PackageReference Update="Microsoft.IdentityModel.Clients.ActiveDirectory"
+						version="5.2.3" />
+	  <PackageReference Update="Newtonsoft.Json"
+						version="11.0.2"
+			    />
+	  <PackageReference Update="Serilog"
+						version="2.10.0"
+			    />
+	  <PackageReference Update="Sitecore.Framework.Messaging.Abstractions"
+						version="2.0.0"
+			    />
+	  <PackageReference Update="Sitecore.XConnect"
+						version="10.1.0"
+			    />
+	  <PackageReference Update="Sitecore.XConnect.Collection.Model"
+						version="10.1.0"
+			    />
+	  <PackageReference Update="Sitecore.XConnect.Core"
+						version="10.1.0"
+			    />
+
+	  <PackageReference Update="Sitecore.XConnect.Service.Plugins"
+						version="10.1.0"
+			    />
+	  <PackageReference Update="System.Configuration.ConfigurationManager"
+						version="4.5.0"
+			    />
+	  <PackageReference Update="Sitecore.Kernel"
+						version="10.1.0"
+			    />
+
+  </ItemGroup>
+</Project>
