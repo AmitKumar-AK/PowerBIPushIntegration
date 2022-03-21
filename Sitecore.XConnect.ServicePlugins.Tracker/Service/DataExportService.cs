@@ -8,10 +8,10 @@ namespace Sitecore.XConnect.ServicePlugins.InteractionsTracker
 {
     public class DataExportService
     {
-        public static async void SendContactInteraction(Interaction entity)
+        public static void SendContactInteraction(Interaction entity)
         {
             try
-            { 
+            {
                 var contact = new Models.Contact()
                 {
                     Id = entity.Contact.Id.Value.ToString()
@@ -56,7 +56,7 @@ namespace Sitecore.XConnect.ServicePlugins.InteractionsTracker
             }
         }
 
-        public static async void SendFacet(Facet facet, string interactionId)
+        public static void SendFacet(Facet facet, string interactionId)
         {
             try
             {
@@ -92,9 +92,10 @@ namespace Sitecore.XConnect.ServicePlugins.InteractionsTracker
                     }
                 }
 
-                if (facet is ProfileScores)
+                //if (facet is ProfileScores)
+                if (facet is Sitecore.XConnect.Collection.Model.ContactBehaviorProfile)
                 {
-                    var _profileScoresFacet = facet as ProfileScores;
+                    var _profileScoresFacet = facet as Sitecore.XConnect.Collection.Model.ContactBehaviorProfile;
                     var profieScoreList = new List<Models.ProfileScoresFacet>();
 
                     foreach (var score in _profileScoresFacet.Scores)
@@ -153,7 +154,9 @@ namespace Sitecore.XConnect.ServicePlugins.InteractionsTracker
                         MinorVersion = _webVisitFacet.OperatingSystem.MinorVersion,
                         Name = _webVisitFacet.OperatingSystem.Name,
                         Referrer = _webVisitFacet.Referrer,
+#pragma warning disable CS0618 // Type or member is obsolete
                         ReferringSite = _webVisitFacet.ReferringSite,
+#pragma warning restore CS0618 // Type or member is obsolete
                         ScreenHeight = _webVisitFacet.Screen.ScreenHeight,
                         ScreenWidth = _webVisitFacet.Screen.ScreenWidth,
                         SearchKeywords = _webVisitFacet.SearchKeywords,
