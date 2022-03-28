@@ -11,6 +11,7 @@ namespace Sitecore.PowerBIIntegration
     public class PowerBIAdapter : IDisposable
     {
         private readonly string clientID;
+        private readonly string clientSecret;
         private readonly string groupID;
         private readonly string datasetID;
         private readonly string token;
@@ -18,6 +19,7 @@ namespace Sitecore.PowerBIIntegration
         public PowerBIAdapter()
         {
             clientID = Sitecore.Configuration.Settings.GetSetting("PowerBIClientID");
+            clientSecret = Sitecore.Configuration.Settings.GetSetting("PowerBIClientSecret");
             groupID = Sitecore.Configuration.Settings.GetSetting("PowerBIGroupID");
             datasetID = Sitecore.Configuration.Settings.GetSetting("PowerBIDatasetID");
 

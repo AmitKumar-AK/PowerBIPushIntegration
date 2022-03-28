@@ -60,6 +60,25 @@ namespace Sitecore.XConnect.ServicePlugins.InteractionsTracker.Plugins
         /// <param name="xdbOperationEventArgs">A <see cref="T:Sitecore.XConnect.Operations.XdbOperationEventArgs" /> object that provides information about the event.</param>
         private void OnOperationCompleted(object sender, XdbOperationEventArgs xdbOperationEventArgs)
         {
+            //Check if no exceptions are occurred during executing the operation. If it is, it will not guarantee that contact was created.
+            if (xdbOperationEventArgs.Operation.Exception != null)
+                return;
+
+            //We need to track only the AddContactOperation operation. Trying to cast to a necessary type.
+            var operation = xdbOperationEventArgs.Operation as AddContactOperation;
+
+            //Checking if it is the necessary operation and if an operation execution status is "Succeeded"
+            if ((operation?.Status == XdbOperationStatus.Succeeded && operation.Entity.Id.HasValue)
+                || (operation?.Status == XdbOperationStatus.Succeeded))
+            {
+
+                //Sending a message with an id of newly created contact. 
+                DataExportService.SendContactInteraction(Convert.ToString(operation.Entity.Id.Value));
+            }
+        }
+
+        private void OnOperationCompleted1(object sender, XdbOperationEventArgs xdbOperationEventArgs)
+        {
             //Check if no exceptions occurred during executing of the operation. 
             if (xdbOperationEventArgs.Operation.Exception != null)
                 return;
@@ -67,7 +86,6 @@ namespace Sitecore.XConnect.ServicePlugins.InteractionsTracker.Plugins
             //We need to track only the AddInteractionOperation operation. Trying to cast to a necessary type.
             var operation = xdbOperationEventArgs.Operation as AddInteractionOperation;
 
-            //Checking if an operation execution status is "Succeeded"
             if (operation?.Status == XdbOperationStatus.Succeeded && operation.Entity.Id.HasValue)
             {
                 Log.Information("Processing add interaction operation for interaction id = {0} and contact id = {1}", operation.Entity.Events[0].Id, operation.Entity.Contact.Id.Value);

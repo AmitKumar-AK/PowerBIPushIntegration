@@ -8,6 +8,26 @@ namespace Sitecore.XConnect.ServicePlugins.InteractionsTracker
 {
     public class DataExportService
     {
+        public static void SendContactInteraction(string contactId)
+        {
+            try
+            {
+                var contact = new Models.ContactNew()
+                {
+                    contact = contactId
+                };
+
+                using (var adapter = new PowerBIAdapter())
+                {
+                    adapter.PushRow(contact, "Contact");
+                }
+
+            }
+            catch (Exception e)
+            {
+                Log.Error("Error during Export data to Power BI. Error: {0}", e.Message);
+            }
+        }
         public static void SendContactInteraction(Interaction entity)
         {
             try
@@ -49,6 +69,7 @@ namespace Sitecore.XConnect.ServicePlugins.InteractionsTracker
                     adapter.PushRow(contact, "Contact");
                     adapter.PushRows(eventList, "Event");
                 }
+
             }
             catch (Exception e)
             {

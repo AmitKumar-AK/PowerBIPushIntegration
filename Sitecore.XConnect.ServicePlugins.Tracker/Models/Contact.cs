@@ -4,4 +4,9 @@
     {
         public string Id { get; set; }
     }
+
+    public class ContactNew
+    {
+        public string contact { get; set; }
+    }
 }

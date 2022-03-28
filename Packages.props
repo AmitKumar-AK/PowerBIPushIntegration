@@ -5,8 +5,10 @@
     <SitecorePreVersion>10.0.0</SitecorePreVersion>
   </PropertyGroup>
   <ItemGroup>
+	  <!--<PackageReference Update="Microsoft.IdentityModel.Clients.ActiveDirectory"
+						version="5.2.3" />-->
 	  <PackageReference Update="Microsoft.IdentityModel.Clients.ActiveDirectory"
-						version="5.2.3" />
+						version="3.14.0" />	  
 	  <PackageReference Update="Newtonsoft.Json"
 						version="11.0.2"
 			    />
