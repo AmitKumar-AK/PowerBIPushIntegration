@@ -12,9 +12,9 @@ namespace Sitecore.XConnect.ServicePlugins.InteractionsTracker
         {
             try
             {
-                var contact = new Models.ContactNew()
+                var contact = new Models.Contact()
                 {
-                    contact = contactId
+                    Id = contactId
                 };
 
                 using (var adapter = new PowerBIAdapter())
