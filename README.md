@@ -60,7 +60,7 @@ The [Sitecore xConnect Service Plugin](https://doc.sitecore.com/xp/en/developers
 
 # How to use Sitecore xConnect Service Plugin Codebase:
 1.	To use this code base, first you have to build the solution.
-2.	Deploy binaries (Sitecore.XConnect.ServicePlugins.InteractionsTracker.dll) of [Sitecore.XConnect.ServicePlugins.InteractionsTrackerCreate](/Sitecore.XConnect.ServicePlugins.Tracker/) solution into Sitecore xConnet Role
+2.	Deploy binaries (Sitecore.XConnect.ServicePlugins.InteractionsTracker.dll) of [Sitecore.XConnect.ServicePlugins.InteractionsTrackerCreate](/Sitecore.XConnect.ServicePlugins.Tracker/) solution into `Sitecore xConnect Role`
 3.	Deploy the required [Configuration details](/Sitecore.PowerBIIntegration/App_Config/Include/Sitecore.PowerBIIntegration/Sitecore.PowerBIIntegration.config) from `Sitecore.PowerBIIntegration solution` into `Sitecore xConnect Role` to connect with Power BI for data sync
 4.	Deploy the [Sitecore xConnect ServicePlugins details](/Sitecore.XConnect.ServicePlugins.Tracker/App_Data/Config/sitecore/Collection/sc.Custom.Service.Plugins.xml) into `Sitecore xConnect Role`
 
