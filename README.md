@@ -1,5 +1,16 @@
 # PowerBIPushIntegration
 
+[![GitHub contributors](https://img.shields.io/github/contributors/amitkumar-ak/PowerBIPushIntegration.svg)](https://GitHub.com/amitkumar-ak/PowerBIPushIntegration/graphs/contributors/)
+[![GitHub issues](https://img.shields.io/github/issues/amitkumar-ak/PowerBIPushIntegration.svg)](https://GitHub.com/amitkumar-ak/PowerBIPushIntegration/issues/)
+[![GitHub pull-requests](https://img.shields.io/github/issues-pr/amitkumar-ak/PowerBIPushIntegration.svg)](https://GitHub.com/amitkumar-ak/PowerBIPushIntegration/pulls/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![GitHub Stars](https://img.shields.io/github/stars/amitkumar-ak/PowerBIPushIntegration?label=GitHub%20Stars)](https://github.com/amitkumar-ak/PowerBIPushIntegration/stargazers)
+![Visitors](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2FAmitKumar-AK%2FPowerBIPushIntegration&label=Visitors&countColor=%23263759&style=plastic)
+
+[![GitHub watchers](https://img.shields.io/github/watchers/amitkumar-ak/PowerBIPushIntegration.svg?style=social&label=Watch&maxAge=2592000)](https://GitHub.com/amitkumar-ak/PowerBIPushIntegration/watchers/)
+[![GitHub forks](https://img.shields.io/github/forks/amitkumar-ak/PowerBIPushIntegration.svg?style=social&label=Fork&maxAge=2592000)](https://GitHub.com/amitkumar-ak/PowerBIPushIntegration/network/)
+[![GitHub stars](https://img.shields.io/github/stars/amitkumar-ak/PowerBIPushIntegration.svg?style=social&label=Star&maxAge=2592000)](https://GitHub.com/amitkumar-ak/PowerBIPushIntegration/stargazers/)
+
 # Capture Sitecore xConnect Data at runtime
 In [Sitecore Experience Platform](https://doc.sitecore.com/xp/en/users/102/sitecore-experience-platform/index-en.html), we have [Sitecore xConnect Services](https://doc.sitecore.com/xp/en/developers/102/sitecore-experience-platform/xconnect-and-the-xdb.html) which can be used to capture Sitecore Analytics data, and later extracted data can be used to create extended analytics Reporting Views for Business User’s with the help of External Integrations e.g., Microsoft Power BI.
 
