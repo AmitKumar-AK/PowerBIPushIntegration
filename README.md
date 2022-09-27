@@ -55,6 +55,9 @@ The [Sitecore xConnect Service Plugin](https://doc.sitecore.com/xp/en/developers
 2.	[Power BI](https://learn.microsoft.com/en-us/power-query/) Integration – in this we have to perform following steps:
   - Creation of [Power BI Schema](/Sitecore.XConnect.ServicePlugins.Tracker/BowerBIDataSet.json)
   - [Power BI API](https://learn.microsoft.com/en-us/rest/api/power-bi/push-datasets/datasets-post-dataset) to push Sitecore xConnect Data to [Power BI](/Sitecore.XConnect.ServicePlugins.Tracker/Service/DataExportService.cs)
+3.	Use of [Sitecore xConnect Custom Facets](https://github.com/AmitKumar-AK/CT.SC/tree/master/src/Environment/xconnect/Model/code). 
+
+>## You can learn more on how to create/deploy/use Sitecore xConnect Custom Facets/Models at <strong>[Creating and deploying custom Sitecore xConnect models](https://github.com/AmitKumar-AK/CT.SC/tree/master/src/Environment/xconnect/Model/code)</strong>.
 
 <strong>With the help of above changes you will be able to push Sitecore xConnect Data at real-time to any datasource (e.g. Power BI).</strong>
 
