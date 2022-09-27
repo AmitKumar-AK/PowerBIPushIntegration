@@ -14,6 +14,11 @@
     <XConnect>
       <Collection>
         <Services>
+        <Sitecore.XConnect.ServicePlugins.ContactTracker.Plugins.ContactCreationTrackerPlugin>
+	        <Type>Sitecore.XConnect.ServicePlugins.InteractionsTracker.Plugins.ContactTrackerPlugin, Sitecore.XConnect.ServicePlugins.InteractionsTracker</Type>
+	        <As>Sitecore.XConnect.Service.Plugins.IXConnectServicePlugin, Sitecore.XConnect.Service.Plugins</As>
+	        <LifeTime>Singleton</LifeTime>
+        </Sitecore.XConnect.ServicePlugins.ContactTracker.Plugins.ContactCreationTrackerPlugin>			
           <Sitecore.XConnect.ServicePlugins.ContactTracker.Plugins.TrackInteractionsPlugin>
             <Type>Sitecore.XConnect.ServicePlugins.InteractionsTracker.Plugins.TrackInteractionsPlugin, Sitecore.XConnect.ServicePlugins.InteractionsTracker</Type>
             <As>Sitecore.XConnect.Service.Plugins.IXConnectServicePlugin, Sitecore.XConnect.Service.Plugins</As>

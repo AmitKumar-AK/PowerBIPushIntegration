@@ -12,30 +12,33 @@ namespace Sitecore.XConnect.ServicePlugins.InteractionsTracker
     public class PowerBIAdapter : IDisposable
     {
         private readonly string clientID;
+        private readonly string clientSecret;
         private readonly string groupID;
         private readonly string datasetID;
         private readonly string token;
+        private readonly string userEmail;
+        private readonly string userPassword;
+        private readonly string powerBIResourceUri;
+        private readonly string powerBIAuthorityUri;
+        private readonly string powerBIApiPostUrl;
 
         public PowerBIAdapter()
         {
             clientID = ConfigurationManager.AppSettings["PowerBIClientID"];
+            clientSecret = ConfigurationManager.AppSettings["PowerBIClientSecret"];
             groupID = ConfigurationManager.AppSettings["PowerBIGroupID"];
             datasetID = ConfigurationManager.AppSettings["PowerBIDatasetID"];
+            userEmail = ConfigurationManager.AppSettings["PowerBIUserEmail"];
+            userPassword = ConfigurationManager.AppSettings["PowerBIUserPassword"];
+            powerBIResourceUri = ConfigurationManager.AppSettings["PowerBIResourceUri"];
+            powerBIAuthorityUri = ConfigurationManager.AppSettings["PowerBIAuthorityUri"];
+            powerBIApiPostUrl = ConfigurationManager.AppSettings["PowerBIApiAddRowsUrl"];
 
             token = GetToken();
         }
 
         private string GetToken()
         {
-            // TODO: Install-Package Microsoft.IdentityModel.Clients.ActiveDirectory -Version 2.21.301221612
-            // and add using Microsoft.IdentityModel.Clients.ActiveDirectory
-
-            //Resource Uri for Power BI API
-            string resourceUri = "https://analysis.windows.net/powerbi/api";
-
-            //OAuth2 authority Uri
-            string authorityUri = "https://login.microsoftonline.com/common/";
-
             //Get access token:
             // To call a Power BI REST operation, create an instance of AuthenticationContext and call AcquireToken
             // AuthenticationContext is part of the Active Directory Authentication Library NuGet package
@@ -44,19 +47,15 @@ namespace Sitecore.XConnect.ServicePlugins.InteractionsTracker
 
             // AcquireToken will acquire an Azure access token
             // Call AcquireToken to get an Azure token from Azure Active Directory token issuance endpoint
-            AuthenticationContext authContext = new AuthenticationContext(authorityUri);
+            AuthenticationContext authContext = new AuthenticationContext(powerBIAuthorityUri);
 
-            var userCredential = new UserPasswordCredential(ConfigurationManager.AppSettings["PowerBIUserEmail"], ConfigurationManager.AppSettings["PowerBIUserPassword"]);
+            var userCredential = new UserPasswordCredential(userEmail, userPassword);
 
-            Task<AuthenticationResult> task = authContext.AcquireTokenAsync(resourceUri, clientID, userCredential);
+            Task<AuthenticationResult> task = authContext.AcquireTokenAsync(powerBIResourceUri, clientID, userCredential);
 
             task.Wait();
 
-
             string token = task.Result.AccessToken;
-
-            Console.WriteLine(token);
-            Console.ReadLine();
 
             return token;
         }
@@ -82,7 +81,7 @@ namespace Sitecore.XConnect.ServicePlugins.InteractionsTracker
         private void SendData(string json, string tableName)
         {
 
-            string powerBIApiAddRowsUrl = String.Format("https://api.powerbi.com/v1.0/myorg/groups/{0}/datasets/{1}/tables/{2}/rows", groupID, datasetID, tableName);
+            string powerBIApiAddRowsUrl = String.Format(powerBIApiPostUrl, groupID, datasetID, tableName);
 
             //POST web request to add rows.
             //Change request method to "POST"

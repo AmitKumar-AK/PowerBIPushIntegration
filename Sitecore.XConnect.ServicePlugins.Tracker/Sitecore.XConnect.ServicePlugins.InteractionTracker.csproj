@@ -33,13 +33,17 @@
   <ItemGroup>
     <Compile Include="Adapter\PowerBIAdapter.cs" />
     <Compile Include="Models\Contact.cs" />
+    <Compile Include="Models\EmailAddressList.cs" />
+    <Compile Include="Models\EmployerFacetData.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\GeoIpData.cs" />
     <Compile Include="Models\Interaction.cs" />
     <Compile Include="Models\IpFacet.cs" />
+    <Compile Include="Models\PersonalInformation.cs" />
     <Compile Include="Models\ProfileScoresFacet.cs" />
     <Compile Include="Models\UserAgentFacet.cs" />
     <Compile Include="Models\WebVisitFacet.cs" />
+    <Compile Include="Plugins\ContactTrackerPlugin.cs" />
     <Compile Include="Service\FakeGeoIpService.cs" />
     <Compile Include="Plugins\TrackFacetsPlugin.cs" />
     <Compile Include="Plugins\TrackInteractionsPlugin.cs" />

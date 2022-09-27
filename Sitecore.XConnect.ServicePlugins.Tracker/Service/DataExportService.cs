@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Sitecore.XConnect.Collection.Model;
 using Serilog;
+using CTModel = Sitecore.XConnect.ServicePlugins.InteractionsTracker.Models;
 
 namespace Sitecore.XConnect.ServicePlugins.InteractionsTracker
 {
@@ -77,10 +78,66 @@ namespace Sitecore.XConnect.ServicePlugins.InteractionsTracker
             }
         }
 
-        public static void SendFacet(Facet facet, string interactionId)
+        public static void SendFacet(Facet facet, string interactionId, string entityId)
         {
             try
             {
+                var contact = new Models.Contact()
+                {
+                    Id = entityId
+                };
+
+                if (facet is PersonalInformation)
+                {
+                    var _personalInfoFacet = facet as PersonalInformation;
+                    var personalInfoFacet = new CTModel.PersonalInformation()
+                    {
+                        FirstName = _personalInfoFacet.FirstName,
+                        LastName = _personalInfoFacet.LastName,
+                        JobTitle = _personalInfoFacet.JobTitle,
+                        InteractionId = interactionId,
+                        ContactId = entityId
+                    };
+                    using (var adapter = new PowerBIAdapter())
+                    {
+                        adapter.PushRow(personalInfoFacet, "PersonalInformation");
+                    }
+                }
+
+                if (facet is EmailAddressList)
+                {
+                    var _emailAddressFacet = facet as EmailAddressList;
+                    var emailAddressFacet = new CTModel.EmailAddressList()
+                    {
+                        Email = _emailAddressFacet.PreferredEmail.SmtpAddress,
+                        InteractionId = interactionId,
+                        ContactId = entityId
+                    };
+                    using (var adapter = new PowerBIAdapter())
+                    {
+                        adapter.PushRow(emailAddressFacet, "EmailAddressList");
+                    }
+                }
+
+                if (string.Equals(facet.XObject.XdbType.LocalName, "EmployerFacetData", StringComparison.InvariantCultureIgnoreCase))
+                {
+
+                    var employerDataFacet = new CTModel.EmployerFacetData()
+                    {
+                        SubTitle = Convert.ToString(facet.XObject["SubTitle"]),
+                        Company = Convert.ToString(facet.XObject["Company"]),
+                        Consent = Convert.ToString(facet.XObject["Consent"]),
+                        PreferredOfficeLocation = Convert.ToString(facet.XObject["PreferredOfficeLocation"]),
+                        InteractionId = interactionId,
+                        ContactId = entityId
+                    };
+                    using (var adapter = new PowerBIAdapter())
+                    {
+                        adapter.PushRow(employerDataFacet, "EmployerFacetData");
+                    }
+                }
+
+
                 if (facet is IpInfo)
                 {
                     var _ipFacet = facet as IpInfo;
@@ -113,10 +170,9 @@ namespace Sitecore.XConnect.ServicePlugins.InteractionsTracker
                     }
                 }
 
-                //if (facet is ProfileScores)
-                if (facet is Sitecore.XConnect.Collection.Model.ContactBehaviorProfile)
+                if (facet is ContactBehaviorProfile)
                 {
-                    var _profileScoresFacet = facet as Sitecore.XConnect.Collection.Model.ContactBehaviorProfile;
+                    var _profileScoresFacet = facet as ContactBehaviorProfile;
                     var profieScoreList = new List<Models.ProfileScoresFacet>();
 
                     foreach (var score in _profileScoresFacet.Scores)
@@ -189,6 +245,7 @@ namespace Sitecore.XConnect.ServicePlugins.InteractionsTracker
                         adapter.PushRow(webVisitFacet, "WebVisitFacet");
                     }
                 }
+
             }
             catch (Exception e)
             {

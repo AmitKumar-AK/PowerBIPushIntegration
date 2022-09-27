@@ -341,6 +341,77 @@
           "dataType": "string"
         }
       ]
+    },
+    {
+      "name": "EmailList",
+      "columns": [
+        {
+          "name": "InteractionId",
+          "dataType": "string"
+        },
+        {
+          "name": "ContactId",
+          "dataType": "string"
+        },
+        {
+          "name": "Email",
+          "dataType": "string"
+        }
+      ]
+    },
+    {
+      "name": "EmployerFacetData",
+      "columns": [
+        {
+          "name": "InteractionId",
+          "dataType": "string"
+        },
+        {
+          "name": "ContactId",
+          "dataType": "string"
+        },
+        {
+          "name": "SubTitle",
+          "dataType": "string"
+        },
+        {
+          "name": "Company",
+          "dataType": "string"
+        },
+        {
+          "name": "Consent",
+          "dataType": "string"
+        },
+        {
+          "name": "PreferredOfficeLocation",
+          "dataType": "string"
+        }
+      ]
+    },
+    {
+      "name": "PersonalInformation",
+      "columns": [
+        {
+          "name": "InteractionId",
+          "dataType": "string"
+        },
+        {
+          "name": "ContactId",
+          "dataType": "string"
+        },
+        {
+          "name": "FirstName",
+          "dataType": "string"
+        },
+        {
+          "name": "LastName",
+          "dataType": "string"
+        },
+        {
+          "name": "JobTitle",
+          "dataType": "string"
+        }
+      ]
     }
   ],
   "relationships": [
@@ -429,6 +500,30 @@
       "fromTable": "ProfileScoresFacet",
       "fromColumn": "ProfileDefinitionId",
       "toTable": "ProfileDefinition",
+      "toColumn": "Id",
+      "crossFilteringBehavior": "OneDirection"
+    },
+    {
+      "name": "EmailListContact",
+      "fromTable": "EmailList",
+      "fromColumn": "ContactId",
+      "toTable": "Contact",
+      "toColumn": "Id",
+      "crossFilteringBehavior": "OneDirection"
+    },
+    {
+      "name": "EmployerFacetDataContact",
+      "fromTable": "EmployerData",
+      "fromColumn": "ContactId",
+      "toTable": "Contact",
+      "toColumn": "Id",
+      "crossFilteringBehavior": "OneDirection"
+    },
+    {
+      "name": "PersonalInformationContact",
+      "fromTable": "PersonalInformation",
+      "fromColumn": "ContactId",
+      "toTable": "Contact",
       "toColumn": "Id",
       "crossFilteringBehavior": "OneDirection"
     }

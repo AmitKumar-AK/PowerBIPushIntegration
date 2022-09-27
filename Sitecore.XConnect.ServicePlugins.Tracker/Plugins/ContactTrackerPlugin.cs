@@ -1,22 +1,22 @@
 ﻿using System;
 using Serilog;
-using System.Linq;
 using Sitecore.Framework.Messaging;
+using Sitecore.XConnect;
 using Sitecore.XConnect.Operations;
 using Sitecore.XConnect.Service.Plugins;
 
 namespace Sitecore.XConnect.ServicePlugins.InteractionsTracker.Plugins
 {
-    public class TrackFacetsPlugin : IXConnectServicePlugin, IDisposable
+    public class ContactTrackerPlugin : IXConnectServicePlugin, IDisposable
     {
         private XdbContextConfiguration _config;
 
-        public TrackFacetsPlugin()
+        public ContactTrackerPlugin()
         {
-            Log.Information("Create {0}", nameof(TrackFacetsPlugin));
+            Log.Information("Create {0}", nameof(ContactTrackerPlugin));
         }
 
-        /// <summary>Subscribes to events current plugin listens to.</summary>
+        /// <summary>Subscribes to events the current plugin listens to.</summary>
         /// <param name="config">
         ///   A <see cref="T:Sitecore.XConnect.XdbContextConfiguration" /> object that provides access to the configuration settings.
         /// </param>
@@ -25,29 +25,29 @@ namespace Sitecore.XConnect.ServicePlugins.InteractionsTracker.Plugins
         /// </exception>
         public void Register(XdbContextConfiguration config)
         {
-            Log.Information("Register {0}", nameof(TrackFacetsPlugin));
+            Log.Information("Register {0}", nameof(ContactTrackerPlugin));
             _config = config;
             RegisterEvents();
         }
 
         /// <summary>
-        ///   Unsubscribes from events current plugin listens to.
+        ///   Unsubscribes from events the current plugin listens to.
         /// </summary>
         public void Unregister()
         {
-            Log.Information("Unregister {0}", nameof(TrackFacetsPlugin));
+            Log.Information("Unregister {0}", nameof(ContactTrackerPlugin));
             UnregisterEvents();
         }
 
         private void RegisterEvents()
         {
-            //Subscribe to OperationCompleted event
+            //Subscribe OperationCompleted event
             _config.OperationCompleted += OnOperationCompleted;
         }
 
         private void UnregisterEvents()
         {
-            //Unsubscribe from OperationCompleted event
+            //Unsubscribe OperationCompleted event
             _config.OperationCompleted -= OnOperationCompleted;
         }
 
@@ -58,17 +58,20 @@ namespace Sitecore.XConnect.ServicePlugins.InteractionsTracker.Plugins
         /// <param name="xdbOperationEventArgs">A <see cref="T:Sitecore.XConnect.Operations.XdbOperationEventArgs" /> object that provides information about the event.</param>
         private void OnOperationCompleted(object sender, XdbOperationEventArgs xdbOperationEventArgs)
         {
-            //Check if no exceptions occurred during executing the operation. 
+            //Check if no exceptions are occurred during executing the operation. If it is, it will not guarantee that contact was created.
             if (xdbOperationEventArgs.Operation.Exception != null)
                 return;
 
-            //We need to track only the SetFacetOperation operation. Trying to cast to a necessary type.
-            var operation = xdbOperationEventArgs.Operation as SetFacetOperation;
+            //We need to track only the AddContactOperation operation. Trying to cast to a necessary type.
+            var operation = xdbOperationEventArgs.Operation as AddContactOperation;
 
-            //Checking if an operation execution status is "Succeeded"
-            if (operation?.Status == XdbOperationStatus.Succeeded)
+            //Checking if it is the necessary operation and if an operation execution status is "Succeeded"
+            if ((operation?.Status == XdbOperationStatus.Succeeded && operation.Entity.Id.HasValue)
+                || (operation?.Status == XdbOperationStatus.Succeeded))
             {
-                DataExportService.SendFacet(operation.Facet, operation.FacetReference.Entity.Id?.ToString(), operation.Target.Entity.Id?.ToString());
+                Log.Information("Processing add contact creation interaction with contact id = {0}", operation.Entity.Id.Value);
+                //Sending a message with an id of newly created contact. 
+                DataExportService.SendContactInteraction(Convert.ToString(operation.Entity.Id.Value));
             }
         }
 
@@ -91,7 +94,7 @@ namespace Sitecore.XConnect.ServicePlugins.InteractionsTracker.Plugins
         {
             if (!disposing)
                 return;
-            Log.Information("Dispose {0}", nameof(SetFacetOperation));
+            Log.Information("Dispose {0}", nameof(ContactTrackerPlugin));
             _config = null;
         }
     }
